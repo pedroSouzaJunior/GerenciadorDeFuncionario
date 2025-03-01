@@ -97,7 +97,7 @@ namespace GerenciadorFuncionarios.Aplicacao.Services
 
 
 
-        public async Task AtualizarAsync(int id, CriarFuncionarioDto funcionarioDto)
+        public async Task AtualizarAsync(int id, AtualizarFuncionarioDto funcionarioDto)
         {
             var funcionario = await _funcionarioRepositorio.ObterPorIdAsync(id);
             if (funcionario == null)
@@ -105,7 +105,6 @@ namespace GerenciadorFuncionarios.Aplicacao.Services
 
             funcionario.Nome = funcionarioDto.Nome;
             funcionario.Sobrenome = funcionarioDto.Sobrenome;
-            funcionario.Email = funcionarioDto.Email;
             funcionario.Documento = funcionarioDto.Documento;
             funcionario.DataNascimento = funcionarioDto.DataNascimento;
             funcionario.GestorId = funcionarioDto.GestorId;

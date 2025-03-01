@@ -1,4 +1,5 @@
 ﻿using GerenciadorFuncionarios.Aplicacao.DTOs;
+using GerenciadorFuncionarios.Aplicacao.Interfaces;
 using GerenciadorFuncionarios.Aplicacao.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,15 @@ namespace GerenciadorFuncionarios.API.Controllers
     {
         private readonly FuncionarioServico _funcionarioServico;
         private readonly ILogger<FuncionariosController> _logger;
+        private readonly IValidacaoPermissaoService _validacaoPermissaoService;
 
-        public FuncionariosController(FuncionarioServico funcionarioServico, ILogger<FuncionariosController> logger)
+        public FuncionariosController(
+            FuncionarioServico funcionarioServico,
+            IValidacaoPermissaoService validacaoPermissaoService,
+            ILogger<FuncionariosController> logger)
         {
             _funcionarioServico = funcionarioServico;
+            _validacaoPermissaoService = validacaoPermissaoService;
             _logger = logger;
         }
 
@@ -70,6 +76,16 @@ namespace GerenciadorFuncionarios.API.Controllers
                 return BadRequest(ModelState);
             }
 
+            try
+            {
+                _validacaoPermissaoService.ValidarCriacaoDeFuncionario(User, criarFuncionarioDto.Role);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                _logger.LogWarning("Usuário {Email} tentou criar um administrador sem permissão.", User.Identity.Name);
+                return Forbid("Você não tem permissão para criar usuários administradores.");
+            }
+
             var novoFuncionario = await _funcionarioServico.CriarAsync(criarFuncionarioDto);
 
             _logger.LogInformation("Funcionário criado com sucesso: ID {FuncionarioId}.", novoFuncionario.Id);
@@ -81,7 +97,7 @@ namespace GerenciadorFuncionarios.API.Controllers
         /// </summary>
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Usuario")]
-        public async Task<IActionResult> Atualizar(int id, [FromBody] CriarFuncionarioDto funcionarioDto)
+        public async Task<IActionResult> Atualizar(int id, [FromBody] AtualizarFuncionarioDto funcionarioDto)
         {
             _logger.LogInformation("Solicitação para atualizar funcionário com ID {FuncionarioId}.", id);
 
