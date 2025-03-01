@@ -66,7 +66,6 @@ namespace GerenciadorFuncionarios.Aplicacao.Services
             if ((DateTime.Today.Year - criarFuncionarioDto.DataNascimento.Year) < 18)
                 throw new Exception("Funcionário deve ser maior de idade.");
 
-            // Hash da senha
             string senhaHash = BCrypt.Net.BCrypt.HashPassword(criarFuncionarioDto.Senha);
 
             var funcionario = new Funcionario
@@ -78,6 +77,7 @@ namespace GerenciadorFuncionarios.Aplicacao.Services
                 DataNascimento = criarFuncionarioDto.DataNascimento,
                 GestorId = criarFuncionarioDto.GestorId,
                 SenhaHash = senhaHash,
+                Role = criarFuncionarioDto.Role ?? "Usuario",
                 Telefones = criarFuncionarioDto.Telefones.Select(t => new TelefoneFuncionario
                 {
                     Numero = t.Numero
@@ -90,18 +90,11 @@ namespace GerenciadorFuncionarios.Aplicacao.Services
             {
                 Id = funcionario.Id,
                 Nome = funcionario.Nome,
-                Sobrenome = funcionario.Sobrenome,
                 Email = funcionario.Email,
-                Documento = funcionario.Documento,
-                DataNascimento = funcionario.DataNascimento,
-                GestorId = funcionario.GestorId,
-                Telefones = funcionario.Telefones.Select(t => new TelefoneDto
-                {
-                    Id = t.Id,
-                    Numero = t.Numero
-                }).ToList()
+                Role = funcionario.Role
             };
         }
+
 
 
         public async Task AtualizarAsync(int id, CriarFuncionarioDto funcionarioDto)
@@ -152,7 +145,8 @@ namespace GerenciadorFuncionarios.Aplicacao.Services
                 Id = funcionario.Id,
                 Nome = funcionario.Nome,
                 Email = funcionario.Email,
-                SenhaHash = funcionario.SenhaHash // Senha só é usada no login
+                SenhaHash = funcionario.SenhaHash,
+                Role = funcionario.Role
             };
         }
     }

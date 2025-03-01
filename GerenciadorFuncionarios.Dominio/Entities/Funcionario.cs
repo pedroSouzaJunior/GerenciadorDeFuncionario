@@ -18,5 +18,6 @@ namespace GerenciadorFuncionarios.Dominio.Entities
         public int? GestorId { get; set; }
         public virtual Funcionario? Gestor { get; set; }
         public string SenhaHash { get; set; } = null!;
+        public string Role { get; set; }
     }
 }

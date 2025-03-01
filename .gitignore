@@ -1,1 +1,61 @@
-.vs/
+# Diretórios de build
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Logs e arquivos temporários
+*.log
+logs/
+temp/
+
+# Arquivos gerados pelo Visual Studio
+.vscode/
+*.user
+*.suo
+*.ntvs*
+*.njsproj
+*.sln.cache
+*.sln.ide
+*.vs/
+.DS_Store
+Thumbs.db
+
+# Pacotes do NuGet e dependências
+packages/
+.nuget/
+project.lock.json
+project.assets.json
+*.nuget.props
+*.nuget.targets
+
+# Arquivos de Debug
+*.pdb
+*.ilk
+*.map
+*.exp
+*.iobj
+*.ipdb
+
+# Arquivos do Entity Framework Migrations
+Migrations/*.Designer.cs
+Migrations/*.csproj
+Migrations/*.json
+
+# Arquivos do Serilog
+*.sourcelink.json
+*.seq
+*.serilog
+
+# Arquivos específicos do Docker
+Dockerfile
+docker-compose.override.yml
+docker-compose.debug.yml
+.env
+
+# Arquivos do Rider/JetBrains
+.idea/
+*.iml
+
+# Chaves privadas e credenciais (se houver)
+secrets.json

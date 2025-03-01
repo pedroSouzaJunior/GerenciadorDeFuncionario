@@ -36,5 +36,7 @@ namespace GerenciadorFuncionarios.Aplicacao.DTOs
         public int? GestorId { get; set; }
 
         public List<TelefoneDto> Telefones { get; set; } = new();
+
+        public string Role { get; set; }
     }
 }

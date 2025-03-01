@@ -16,5 +16,6 @@ namespace GerenciadorFuncionarios.Aplicacao.DTOs
         public DateTime DataNascimento { get; set; }
         public int? GestorId { get; set; }
         public List<TelefoneDto> Telefones { get; set; } = new();
+        public string Role { get; set; }
     }
 }

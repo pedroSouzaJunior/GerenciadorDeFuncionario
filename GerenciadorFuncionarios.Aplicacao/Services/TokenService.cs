@@ -19,14 +19,19 @@ public class TokenService
     {
         var key = Encoding.UTF8.GetBytes(_configuration["JwtSettings:SecretKey"]);
 
+        var claims = new[]
+        {
+            new Claim(ClaimTypes.Name, funcionario.Nome),
+            new Claim(ClaimTypes.Email, funcionario.Email),
+            new Claim(ClaimTypes.Role, funcionario.Role),
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+        };
+
+
         var tokenHandler = new JwtSecurityTokenHandler();
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.Name, funcionario.Email),
-                new Claim(ClaimTypes.NameIdentifier, funcionario.Id.ToString())
-            }),
+            Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddMinutes(Convert.ToInt32(_configuration["JwtSettings:ExpirationMinutes"])),
             Issuer = _configuration["JwtSettings:Issuer"],
             Audience = _configuration["JwtSettings:Audience"],
