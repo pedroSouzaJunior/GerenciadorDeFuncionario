@@ -1,15 +1,10 @@
 ﻿using GerenciadorFuncionarios.Aplicacao.DTOs;
 using GerenciadorFuncionarios.Aplicacao.Interfaces;
 using GerenciadorFuncionarios.Dominio.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GerenciadorFuncionarios.Aplicacao.Services
 {
-    public class FuncionarioServico
+    public class FuncionarioServico : IFuncionarioServico
     {
         private readonly IFuncionarioRepositorio _funcionarioRepositorio;
 

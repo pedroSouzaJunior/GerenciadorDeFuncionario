@@ -84,6 +84,8 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddScoped<IFuncionarioRepositorio, FuncionarioRepositorio>();
 builder.Services.AddScoped<IValidacaoPermissaoService, ValidacaoPermissaoService>();
+builder.Services.AddScoped<IFuncionarioServico, FuncionarioServico>();
+
 builder.Services.AddScoped<FuncionarioServico>();
 builder.Services.AddScoped<TokenService>();
 

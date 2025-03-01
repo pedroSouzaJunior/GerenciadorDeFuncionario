@@ -12,12 +12,12 @@ namespace GerenciadorFuncionarios.API.Controllers
     [Authorize]
     public class FuncionariosController : ControllerBase
     {
-        private readonly FuncionarioServico _funcionarioServico;
+        private readonly IFuncionarioServico _funcionarioServico;
         private readonly ILogger<FuncionariosController> _logger;
         private readonly IValidacaoPermissaoService _validacaoPermissaoService;
 
         public FuncionariosController(
-            FuncionarioServico funcionarioServico,
+            IFuncionarioServico funcionarioServico,
             IValidacaoPermissaoService validacaoPermissaoService,
             ILogger<FuncionariosController> logger)
         {
