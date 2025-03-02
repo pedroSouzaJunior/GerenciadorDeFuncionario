@@ -48,7 +48,6 @@ Migrations/*.json
 *.serilog
 
 # Arquivos específicos do Docker
-Dockerfile
 docker-compose.override.yml
 docker-compose.debug.yml
 .env
@@ -59,3 +58,49 @@ docker-compose.debug.yml
 
 # Chaves privadas e credenciais (se houver)
 secrets.json
+
+# =========================
+#  ARQUIVOS DO ANGULAR 
+# =========================
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log
+yarn-debug.log
+package-lock.json
+
+# Angular CLI
+.angular/
+.angular/cache/
+
+# Diretório de build
+dist/
+out-tsc/
+
+# Configuração de ambiente
+src/environments/*.ts
+
+# Testes e relatórios
+coverage/
+karma.conf.js
+test-results/
+
+# Configuração do editor
+.editorconfig
+.eslintrc.json
+.prettierrc*
+*.prettierignore
+
+# Arquivos gerados pelo Angular Language Service
+**/*.ngsummary.json
+**/*.ngfactory.ts
+**/*.ngstyle.ts
+**/*.ngsw*
+
+# Arquivos de cache do Cypress (caso use)
+cypress/screenshots/
+cypress/videos/
+cypress/results/
+
+# =========================
