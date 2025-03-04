@@ -82,5 +82,13 @@
         </div>
       </form>
     </div>
+
+    <!-- Mensagens de erro -->
+    <div *ngIf="erros.length" class="error-container">
+        <div class="error-message" *ngFor="let erro of erros">
+        ⚠️ {{ erro }}
+        </div>
+    </div>
+  
   </div>
   

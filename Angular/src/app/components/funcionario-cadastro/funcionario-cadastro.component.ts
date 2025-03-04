@@ -28,21 +28,23 @@ export class FuncionarioCadastroComponent {
   loading = false;
   sucesso = false;
   senhaValida = false;
+  erros: string[] = [];
 
   constructor(private funcionarioService: FuncionarioService) {}
 
   cadastrarFuncionario() {
     this.loading = true;
     this.sucesso = false;
+    this.erros = [];
   
     if (!this.funcionario.documento || !/^\d{11}$/.test(this.funcionario.documento)) {
-      console.error("Erro: O Documento deve conter exatamente 11 números.");
+      this.erros.push("O Documento deve conter exatamente 11 números.");
       this.loading = false;
       return;
     }
   
     if (!this.validarSenha(this.funcionario.senha)) {
-      console.error("Erro: A senha deve ter pelo menos 8 caracteres, incluindo uma maiúscula, uma minúscula, um número e um caractere especial.");
+      this.erros.push("A senha deve ter pelo menos 8 caracteres, incluindo uma maiúscula, uma minúscula, um número e um caractere especial.");
       this.loading = false;
       return;
     }
@@ -57,15 +59,34 @@ export class FuncionarioCadastroComponent {
           this.funcionarioAdicionado.emit();
         }, 1500);
       },
-      (error) => {
-        this.loading = false;
-        console.error("Erro ao cadastrar funcionário", error);
-        if (error.error && error.error.errors) {
-          console.log("Detalhes do erro:", error.error.errors);
-        }
-      }
+      (error) => this.tratarErroCadastro(error)
     );
   }
+
+  private tratarErroCadastro(error: any) {
+    this.loading = false;
+    console.error("Erro ao cadastrar funcionário", error);
+    this.erros = [];
+  
+    if (error.status === 401) {
+      this.erros.push("⚠️ Sessão expirada. Faça login novamente.");
+    } else if (error.status === 403) {
+      this.erros.push("⚠️ Você não tem permissão para realizar esta ação.");
+    } else if (error.status === 500) {
+      if (error.error && typeof error.error === 'string' && error.error.includes("Você não tem permissão para criar usuários administradores")) {
+        this.erros.push("⚠️ Você não tem permissão para criar usuários administradores.");
+      } else {
+        this.erros.push("⚠️ Erro interno no servidor. Tente novamente mais tarde.");
+      }
+    } else if (error.error && error.error.errors) {
+      Object.keys(error.error.errors).forEach(key => {
+        this.erros.push(...error.error.errors[key]);
+      });
+    } else {
+      this.erros.push("⚠️ Erro desconhecido ao cadastrar. Tente novamente.");
+    }
+  }
+  
   
   validarSenha(senha: string): boolean {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;

@@ -3,6 +3,8 @@ import { Funcionario, FuncionarioService } from '../../services/funcionario.serv
 import { CommonModule } from '@angular/common';
 import { FuncionarioDetalhesComponent } from '../../components/funcionario-detalhes/funcionario-detalhes.component';
 import { FuncionarioCadastroComponent } from '../../components/funcionario-cadastro/funcionario-cadastro.component';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-funcionarios-list',
@@ -20,7 +22,11 @@ export class FuncionariosListComponent implements OnInit {
   modalAberto = false;
   modalCadastroAberto = false;
 
-  constructor(private funcionarioService: FuncionarioService) {}
+  constructor(
+    private funcionarioService: FuncionarioService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.carregarFuncionarios();
@@ -64,5 +70,10 @@ export class FuncionariosListComponent implements OnInit {
   fecharModalCadastro() {
     this.modalCadastroAberto = false;
     this.carregarFuncionarios();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }

@@ -1,8 +1,15 @@
 <div class="container">
   <div class="header">
-    <h2>Bem-vindo ao Gerenciador de Funcionários 👋</h2>
-    <p>Gerencie os funcionários da empresa de forma simples e eficiente. Cadastre novos funcionários, visualize detalhes e edite informações.</p>
-    <button class="add-btn" (click)="abrirModalCadastro()">➕ Cadastrar Funcionário</button>
+    <div class="header-content">
+      <div>
+        <h2>Bem-vindo ao Gerenciador de Funcionários 👋</h2>
+        <p>Gerencie os funcionários da empresa de forma simples e eficiente. Cadastre novos funcionários, visualize detalhes e edite informações.</p>
+      </div>
+      <div class="buttons">
+        <button class="add-btn" (click)="abrirModalCadastro()">➕ Cadastrar Funcionário</button>
+        <button class="logout-btn" (click)="logout()">🚪 Sair</button>
+      </div>
+    </div>
   </div>
   
   <!-- Espaçamento antes da tabela -->
