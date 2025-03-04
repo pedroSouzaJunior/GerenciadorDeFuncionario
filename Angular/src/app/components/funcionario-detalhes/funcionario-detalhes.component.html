@@ -1,0 +1,27 @@
+<div class="modal-overlay" *ngIf="isOpen">
+    <div class="modal-content">
+      <h2>👤 Detalhes do Funcionário</h2>
+      <button class="close-btn" (click)="fecharModal()">✖</button>
+  
+      <table>
+        <tr><th>ID:</th> <td>{{ funcionario.id }}</td></tr>
+        <tr><th>Nome:</th> <td>{{ funcionario.nome }} {{ funcionario.sobrenome }}</td></tr>
+        <tr><th>Email:</th> <td>{{ funcionario.email }}</td></tr>
+        <tr><th>Documento:</th> <td>{{ funcionario.documento }}</td></tr>
+        <tr><th>Data de Nascimento:</th> <td>{{ funcionario.dataNascimento | date:'dd/MM/yyyy' }}</td></tr>
+        <tr>
+          <th>Telefones:</th>
+          <td>
+            <ul>
+              <li *ngFor="let telefone of funcionario.telefones">
+                📞 {{ telefone.tipo }}: {{ telefone.numero }}
+              </li>
+            </ul>
+            <span *ngIf="funcionario.telefones.length === 0">🚫 Sem telefone</span>
+          </td>
+        </tr>
+        <tr><th>Função:</th> <td><span class="role-badge" [class.admin]="funcionario.role === 'Admin'">{{ funcionario.role }}</span></td></tr>
+      </table>
+    </div>
+  </div>
+  

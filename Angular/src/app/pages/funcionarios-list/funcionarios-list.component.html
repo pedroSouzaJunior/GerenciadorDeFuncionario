@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="header">
+    <h2>Bem-vindo ao Gerenciador de Funcionários 👋</h2>
+    <p>Gerencie os funcionários da empresa de forma simples e eficiente. Cadastre novos funcionários, visualize detalhes e edite informações.</p>
+    <button class="add-btn" (click)="abrirModalCadastro()">➕ Cadastrar Funcionário</button>
+  </div>
+  
+  <!-- Espaçamento antes da tabela -->
+  <div class="spacer"></div>
+  
+  <table *ngIf="!loading" class="styled-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome Completo</th>
+        <th>Email</th>
+        <th>Documento</th>
+        <th>Data de Nascimento</th>
+        <th>Telefones</th>
+        <th>Função</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let funcionario of funcionarios">
+        <td>{{ funcionario.id }}</td>
+        <td>{{ funcionario.nome }} {{ funcionario.sobrenome }}</td>
+        <td>{{ funcionario.email }}</td>
+        <td>{{ funcionario.documento }}</td>
+        <td>{{ funcionario.dataNascimento | date:'dd/MM/yyyy' }}</td>
+        <td>
+          <ul>
+            <li *ngFor="let telefone of funcionario.telefones">
+              📞 {{ telefone.tipo }}: {{ telefone.numero }}
+            </li>
+          </ul>
+        </td>
+        <td><span class="role-badge" [class.admin]="funcionario.role === 'Admin'">{{ funcionario.role }}</span></td>
+        <td>
+          <button class="view-btn" (click)="abrirModal(funcionario)">👀 Exibir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<app-funcionario-detalhes 
+  [funcionario]="funcionarioSelecionado" 
+  [isOpen]="modalAberto"
+  (fechar)="fecharModal()">
+</app-funcionario-detalhes>
+
+<app-funcionario-cadastro 
+  *ngIf="modalCadastroAberto"
+  (fechar)="fecharModalCadastro()"
+  (funcionarioAdicionado)="fecharModalCadastro()">
+</app-funcionario-cadastro>

@@ -1,0 +1,84 @@
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Funcionario, FuncionarioService } from '../../services/funcionario.service';
+
+@Component({
+  selector: 'app-funcionario-cadastro',
+  imports: [CommonModule, FormsModule],
+  templateUrl: './funcionario-cadastro.component.html',
+  styleUrl: './funcionario-cadastro.component.scss'
+})
+export class FuncionarioCadastroComponent {
+
+  @Output() fechar = new EventEmitter<void>();
+  @Output() funcionarioAdicionado = new EventEmitter<void>();
+
+  funcionario: Omit<Funcionario, 'id'> = {
+    nome: '',
+    sobrenome: '',
+    email: '',
+    documento: '',
+    dataNascimento: '',
+    telefones: [],
+    role: 'Usuario',
+    senha: ''
+  };
+
+  loading = false;
+  sucesso = false;
+  senhaValida = false;
+
+  constructor(private funcionarioService: FuncionarioService) {}
+
+  cadastrarFuncionario() {
+    this.loading = true;
+    this.sucesso = false;
+  
+    if (!this.funcionario.documento || !/^\d{11}$/.test(this.funcionario.documento)) {
+      console.error("Erro: O Documento deve conter exatamente 11 números.");
+      this.loading = false;
+      return;
+    }
+  
+    if (!this.validarSenha(this.funcionario.senha)) {
+      console.error("Erro: A senha deve ter pelo menos 8 caracteres, incluindo uma maiúscula, uma minúscula, um número e um caractere especial.");
+      this.loading = false;
+      return;
+    }
+  
+    this.funcionarioService.criarFuncionario(this.funcionario).subscribe(
+      () => {
+        this.loading = false;
+        this.sucesso = true;
+        setTimeout(() => {
+          this.sucesso = false;
+          this.fechar.emit();
+          this.funcionarioAdicionado.emit();
+        }, 1500);
+      },
+      (error) => {
+        this.loading = false;
+        console.error("Erro ao cadastrar funcionário", error);
+        if (error.error && error.error.errors) {
+          console.log("Detalhes do erro:", error.error.errors);
+        }
+      }
+    );
+  }
+  
+  validarSenha(senha: string): boolean {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    this.senhaValida = regex.test(senha);
+    return this.senhaValida;
+  }
+  
+
+  adicionarTelefone() {
+    this.funcionario.telefones.push({ tipo: 'Celular', numero: '' });
+  }
+
+  removerTelefone(index: number) {
+    this.funcionario.telefones.splice(index, 1);
+  }
+}
