@@ -1,0 +1,19 @@
+<div class="modal-overlay">
+    <div class="modal-container">
+      <h2 class="modal-title">⚠️ Confirmar Exclusão</h2>
+      <p>Tem certeza que deseja excluir <strong>{{ funcionario.nome }} {{ funcionario.sobrenome }}</strong>?</p>
+      <p class="warning-text">Esta ação é irreversível e removerá permanentemente os dados do funcionário.</p>
+  
+      <!-- Exibir mensagens de erro -->
+      <div *ngIf="erro" class="error-message">❌ {{ erro }}</div>
+  
+      <div *ngIf="loading" class="loading">⏳ Excluindo...</div>
+      
+      <!-- Botões -->
+      <div class="modal-buttons">
+        <button class="delete-confirm-btn" (click)="excluirFuncionario()" [disabled]="loading">🗑️ Excluir</button>
+        <button class="cancel-btn" (click)="fechar.emit()" [disabled]="loading">❌ Cancelar</button>
+      </div>
+    </div>
+  </div>
+  

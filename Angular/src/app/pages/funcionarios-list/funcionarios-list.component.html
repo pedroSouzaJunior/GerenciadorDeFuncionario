@@ -18,14 +18,14 @@
   <table *ngIf="!loading" class="styled-table">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Nome Completo</th>
-        <th>Email</th>
-        <th>Documento</th>
-        <th>Data de Nascimento</th>
-        <th>Telefones</th>
-        <th>Função</th>
-        <th>Ações</th>
+        <th style="width: 8%;">ID</th>
+        <th style="width: 22%;">Nome Completo</th>
+        <th style="width: 18%;">Email</th>
+        <th style="width: 12%;">Documento</th>
+        <th style="width: 12%;">Data de Nascimento</th>
+        <th style="width: 14%;">Telefones</th>
+        <th style="width: 10%;">Função</th>
+        <th style="width: 14%;">Ações</th>
       </tr>
     </thead>
     <tbody>
@@ -42,14 +42,22 @@
             </li>
           </ul>
         </td>
-        <td><span class="role-badge" [class.admin]="funcionario.role === 'Admin'">{{ funcionario.role }}</span></td>
-        <td>
-          <button class="view-btn" (click)="abrirModal(funcionario)">👀 Exibir</button>
+        <td>{{ funcionario.role }}</td>
+        <td class="action-buttons">
+          <button class="btn btn-view" (click)="abrirModal(funcionario)">👀 Exibir</button>
           <button class="btn btn-edit" (click)="abrirModalEdicao(funcionario)">✏️ Editar</button>
+          <button 
+            class="btn btn-delete"
+            (click)="abrirModalExclusao(funcionario)"
+            matTooltip="Apenas administradores podem excluir funcionários"
+            matTooltipPosition="above">
+            🗑️ Excluir
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
+  
 </div>
 
 <!-- Modal -->
@@ -73,3 +81,9 @@
   (funcionarioAtualizado)="fecharModalEdicao()">
 </app-funcionario-edicao>
 
+<app-funcionario-exclusao
+  *ngIf="modalExclusaoAberto"
+  [funcionario]="funcionarioParaExcluir"
+  (fechar)="fecharModalExclusao()"
+  (funcionarioExcluido)="onFuncionarioExcluido()">
+</app-funcionario-exclusao>

@@ -6,6 +6,7 @@ import { FuncionarioCadastroComponent } from '../../components/funcionario-cadas
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FuncionarioEdicaoComponent } from '../../components/funcionario-edicao/funcionario-edicao.component';
+import { FuncionarioExclusaoComponent } from '../../components/funcionario-exclusao/funcionario-exclusao.component';
 
 @Component({
   selector: 'app-funcionarios-list',
@@ -13,17 +14,21 @@ import { FuncionarioEdicaoComponent } from '../../components/funcionario-edicao/
     CommonModule,
     FuncionarioDetalhesComponent,
     FuncionarioCadastroComponent,
-    FuncionarioEdicaoComponent],
+    FuncionarioEdicaoComponent,
+    FuncionarioExclusaoComponent],
   templateUrl: './funcionarios-list.component.html',
   styleUrl: './funcionarios-list.component.scss'
 })
 export class FuncionariosListComponent implements OnInit {
   funcionarios: Funcionario[] = [];
+  funcionarioParaExcluir!: Funcionario;
   loading = true;
   funcionarioSelecionado!: Funcionario;
   modalAberto = false;
   modalCadastroAberto = false;
   modalEdicaoAberto = false;
+  modalExclusaoAberto = false;
+
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -82,6 +87,20 @@ export class FuncionariosListComponent implements OnInit {
   
   fecharModalEdicao() {
     this.modalEdicaoAberto = false;
+    this.carregarFuncionarios();
+  }
+
+  abrirModalExclusao(funcionario: Funcionario) {
+    this.funcionarioParaExcluir = funcionario;
+    this.modalExclusaoAberto = true;
+  }
+  
+  fecharModalExclusao() {
+    this.modalExclusaoAberto = false;
+  }
+  
+  onFuncionarioExcluido() {
+    this.fecharModalExclusao();
     this.carregarFuncionarios();
   }
 
