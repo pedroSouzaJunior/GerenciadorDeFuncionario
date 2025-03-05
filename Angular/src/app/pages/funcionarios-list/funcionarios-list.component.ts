@@ -5,13 +5,15 @@ import { FuncionarioDetalhesComponent } from '../../components/funcionario-detal
 import { FuncionarioCadastroComponent } from '../../components/funcionario-cadastro/funcionario-cadastro.component';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { FuncionarioEdicaoComponent } from '../../components/funcionario-edicao/funcionario-edicao.component';
 
 @Component({
   selector: 'app-funcionarios-list',
   imports: [
     CommonModule,
     FuncionarioDetalhesComponent,
-    FuncionarioCadastroComponent],
+    FuncionarioCadastroComponent,
+    FuncionarioEdicaoComponent],
   templateUrl: './funcionarios-list.component.html',
   styleUrl: './funcionarios-list.component.scss'
 })
@@ -21,6 +23,7 @@ export class FuncionariosListComponent implements OnInit {
   funcionarioSelecionado!: Funcionario;
   modalAberto = false;
   modalCadastroAberto = false;
+  modalEdicaoAberto = false;
 
   constructor(
     private funcionarioService: FuncionarioService,
@@ -69,6 +72,16 @@ export class FuncionariosListComponent implements OnInit {
 
   fecharModalCadastro() {
     this.modalCadastroAberto = false;
+    this.carregarFuncionarios();
+  }
+
+  abrirModalEdicao(funcionario: Funcionario) {
+    this.funcionarioSelecionado = { ...funcionario };
+    this.modalEdicaoAberto = true;
+  }
+  
+  fecharModalEdicao() {
+    this.modalEdicaoAberto = false;
     this.carregarFuncionarios();
   }
 

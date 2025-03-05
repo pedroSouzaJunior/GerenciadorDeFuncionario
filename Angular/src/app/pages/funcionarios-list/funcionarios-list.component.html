@@ -45,6 +45,7 @@
         <td><span class="role-badge" [class.admin]="funcionario.role === 'Admin'">{{ funcionario.role }}</span></td>
         <td>
           <button class="view-btn" (click)="abrirModal(funcionario)">👀 Exibir</button>
+          <button class="btn btn-edit" (click)="abrirModalEdicao(funcionario)">✏️ Editar</button>
         </td>
       </tr>
     </tbody>
@@ -63,3 +64,12 @@
   (fechar)="fecharModalCadastro()"
   (funcionarioAdicionado)="fecharModalCadastro()">
 </app-funcionario-cadastro>
+
+<app-funcionario-edicao 
+  *ngIf="modalEdicaoAberto"
+  [funcionario]="funcionarioSelecionado"
+  [isOpen]="modalEdicaoAberto"
+  (fechar)="fecharModalEdicao()"
+  (funcionarioAtualizado)="fecharModalEdicao()">
+</app-funcionario-edicao>
+

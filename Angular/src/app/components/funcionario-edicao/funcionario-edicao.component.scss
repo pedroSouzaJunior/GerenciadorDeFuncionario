@@ -1,0 +1,132 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 600px; /* Modal maior */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #005CA9;
+}
+
+/* Melhor espaçamento entre colunas */
+.form-grid {
+  display: flex;
+  gap: 25px; /* Maior espaçamento entre colunas */
+  row-gap: 15px; /* Maior espaçamento entre linhas */
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.form-group {
+  flex: 1 1 48%;
+  text-align: left;
+  padding-bottom: 15px; /* Espaço extra entre os grupos */
+
+  label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+
+  input:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+  }
+}
+
+/* Melhor espaçamento para a seção de telefones */
+.telefones-container {
+  margin-top: 20px;
+  text-align: left;
+  font-weight: bold;
+
+  .telefone-item {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Espaçamento maior entre os inputs */
+    margin-top: 8px;
+
+    select {
+      width: 40%;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+    }
+  }
+}
+
+.error-message {
+  background: #ffdddd;
+  color: #d8000c;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.loading {
+  margin-top: 15px;
+  font-weight: bold;
+  color: #005CA9;
+}
+
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 12px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+
+  button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .save-btn {
+    background: #28a745;
+    color: white;
+    margin-right: 15px;
+  }
+
+  .cancel-btn {
+    background: #dc3545;
+    color: white;
+  }
+}
