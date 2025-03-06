@@ -59,5 +59,13 @@ namespace GerenciadorFuncionarios.Infraestrutura.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(f => f.Email == email);
         }
+
+        public async Task RemoverGestorDosSubordinados(int gestorId)
+        {
+            await _context.Funcionarios
+                .Where(f => f.GestorId == gestorId)
+                .ExecuteUpdateAsync(s => s.SetProperty(f => f.GestorId, (int?)null));
+        }
+
     }
 }

@@ -12,6 +12,7 @@ import { Funcionario, FuncionarioService } from '../../services/funcionario.serv
 export class FuncionarioEdicaoComponent implements OnInit {
   @Input() funcionario!: Funcionario;
   @Input() isOpen = false;
+  @Input() gestoresDisponiveis: Funcionario[] = [];
   @Output() fechar = new EventEmitter<void>();
   @Output() funcionarioAtualizado = new EventEmitter<void>();
 
@@ -24,6 +25,12 @@ export class FuncionarioEdicaoComponent implements OnInit {
   ngOnInit() {
     this.funcionario.dataNascimento = this.formatarData(this.funcionario.dataNascimento);
     this.funcionario.role = this.funcionario.role || 'Usuario';
+    this.carregarGestoresDisponiveis();
+  }
+
+  private carregarGestoresDisponiveis() {
+    const filtro = this.gestoresDisponiveis.filter(f => f.email !== this.funcionario.email);
+    this.gestoresDisponiveis = filtro;
   }
 
   formatarData(data: string): string {

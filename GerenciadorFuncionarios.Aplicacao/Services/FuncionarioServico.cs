@@ -117,6 +117,7 @@ namespace GerenciadorFuncionarios.Aplicacao.Services
             if (funcionario == null)
                 throw new Exception("Funcionário não encontrado.");
 
+            await _funcionarioRepositorio.RemoverGestorDosSubordinados(id);
             await _funcionarioRepositorio.RemoverAsync(funcionario);
         }
 

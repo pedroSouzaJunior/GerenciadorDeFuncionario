@@ -40,6 +40,15 @@
             <option value="Admin">Administrador</option>
           </select>
         </div>
+
+        <div class="form-group">
+          <label for="gestorId">Selecione o Gerente:</label>
+          <select id="gestorId" [(ngModel)]="funcionario.gestorId" name="gestorId">
+            <option *ngFor="let gestor of gestoresDisponiveis" [value]="gestor.id">
+              {{ gestor.nome }} {{ gestor.sobrenome }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <!-- Telefones -->

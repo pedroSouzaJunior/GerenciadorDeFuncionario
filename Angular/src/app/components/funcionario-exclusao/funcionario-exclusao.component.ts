@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Funcionario, FuncionarioService } from '../../services/funcionario.service';
+import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-funcionario-exclusao',
-  imports: [],
+  imports: [CommonModule, NgIf],
   templateUrl: './funcionario-exclusao.component.html',
   styleUrl: './funcionario-exclusao.component.scss'
 })

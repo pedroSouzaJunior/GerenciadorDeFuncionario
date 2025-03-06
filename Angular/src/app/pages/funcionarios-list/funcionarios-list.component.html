@@ -63,12 +63,14 @@
 <!-- Modal -->
 <app-funcionario-detalhes 
   [funcionario]="funcionarioSelecionado" 
+  [gestoresDisponiveis]="funcionarios"
   [isOpen]="modalAberto"
   (fechar)="fecharModal()">
 </app-funcionario-detalhes>
 
 <app-funcionario-cadastro 
   *ngIf="modalCadastroAberto"
+  [gestoresDisponiveis]="funcionarios"
   (fechar)="fecharModalCadastro()"
   (funcionarioAdicionado)="fecharModalCadastro()">
 </app-funcionario-cadastro>
@@ -76,6 +78,7 @@
 <app-funcionario-edicao 
   *ngIf="modalEdicaoAberto"
   [funcionario]="funcionarioSelecionado"
+  [gestoresDisponiveis]="funcionarios"
   [isOpen]="modalEdicaoAberto"
   (fechar)="fecharModalEdicao()"
   (funcionarioAtualizado)="fecharModalEdicao()">

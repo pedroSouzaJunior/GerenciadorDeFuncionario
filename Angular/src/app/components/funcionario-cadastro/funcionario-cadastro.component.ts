@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Funcionario, FuncionarioService } from '../../services/funcionario.service';
 
@@ -9,8 +9,9 @@ import { Funcionario, FuncionarioService } from '../../services/funcionario.serv
   templateUrl: './funcionario-cadastro.component.html',
   styleUrl: './funcionario-cadastro.component.scss'
 })
-export class FuncionarioCadastroComponent {
+export class FuncionarioCadastroComponent implements OnInit {
 
+  @Input() gestoresDisponiveis: Funcionario[] = [];
   @Output() fechar = new EventEmitter<void>();
   @Output() funcionarioAdicionado = new EventEmitter<void>();
 
@@ -22,7 +23,8 @@ export class FuncionarioCadastroComponent {
     dataNascimento: '',
     telefones: [],
     role: 'Usuario',
-    senha: ''
+    senha: '',
+    gestorId: null
   };
 
   loading = false;
@@ -31,6 +33,15 @@ export class FuncionarioCadastroComponent {
   erros: string[] = [];
 
   constructor(private funcionarioService: FuncionarioService) {}
+
+  ngOnInit(): void {
+    this.carregarGestoresDisponiveis();
+  }
+
+  private carregarGestoresDisponiveis() {
+    const filtro = this.gestoresDisponiveis.filter(f => f.email !== this.funcionario.email);
+    this.gestoresDisponiveis = filtro;
+  }
 
   cadastrarFuncionario() {
     this.loading = true;

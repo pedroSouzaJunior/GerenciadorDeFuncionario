@@ -18,6 +18,7 @@ export interface Funcionario {
   telefones: Telefone[];
   role: string;
   senha: string;
+  gestorId: null;
 }
 
 @Injectable({

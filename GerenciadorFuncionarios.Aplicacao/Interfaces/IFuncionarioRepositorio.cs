@@ -16,5 +16,6 @@ namespace GerenciadorFuncionarios.Aplicacao.Interfaces
         Task RemoverAsync(Funcionario funcionario);
         Task<bool> ExisteAsync(int id);
         Task<Funcionario?> ObterPorEmailAsync(string email);
+        Task RemoverGestorDosSubordinados(int gestorId);
     }
 }

@@ -9,6 +9,11 @@
         <tr><th>Email:</th> <td>{{ funcionario.email }}</td></tr>
         <tr><th>Documento:</th> <td>{{ funcionario.documento }}</td></tr>
         <tr><th>Data de Nascimento:</th> <td>{{ funcionario.dataNascimento | date:'dd/MM/yyyy' }}</td></tr>
+        <tr *ngIf="funcionario.gestorId">
+          <th>Gestor:</th>
+          <td>{{ nomeGestor }}</td>
+        </tr>
+        
         <tr>
           <th>Telefones:</th>
           <td>
